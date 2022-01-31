@@ -1,0 +1,19 @@
+//Update Invoice status to paid
+
+List<apex_invoice__c> invoiceList = [SELECT id, Name, APEX_Status__c, createdDate FROM APEX_Invoice__c];
+
+//create List to hold the updated invoice records
+List<apex_invoice__c> updatedInvoiceList = new List<apex_invoice__c>();
+for (APEX_Invoice__c objInvoice: invoiceList) {
+		if (objInvoice.APEX_Status__c !='Paid') {
+			objInvoice.APEX_Status__c = 'Paid';
+			updatedInvoiceList.add(objInvoice);
+		}
+	
+}
+
+//DML Statement to update the invoice status
+update updatedInvoiceList;
+
+//Prints the value of updated invoices
+System.debug('List has been updated and updated value of records are'+updatedInvoiceList);
